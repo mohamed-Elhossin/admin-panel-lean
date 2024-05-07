@@ -14,9 +14,16 @@ if (isset($_POST['login'])) {
   $admin = mysqli_query($conn, $select);
 
   $numRows =  mysqli_num_rows($admin);
+  $all_admin_data = mysqli_fetch_assoc($admin);
 
   if ($numRows == 1) {
-    $_SESSION['admin'] = $email;
+    $_SESSION['admin'] = [
+      'id' => $all_admin_data['id'],
+      'image' => $all_admin_data['image'],
+      "name" => $all_admin_data['name'],
+      "rule" => $all_admin_data['rule'],
+      'email' => $all_admin_data['email']
+    ];
     redirect('');
   } else {
     echo "false Admin";
@@ -24,7 +31,10 @@ if (isset($_POST['login'])) {
 }
 // session_unset();
 // session_destroy();
-
+if (!isset($_SESSION['admin'])) {
+} else {
+  redirect('index.php');
+}
 ?>
 <main>
   <div class="container">

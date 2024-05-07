@@ -22,7 +22,7 @@ if (isset($_GET['delete'])) {
 }
 
 
-auth();
+auth(2);
 ?>
 
 

@@ -21,7 +21,7 @@ if (isset($_GET['delete'])) {
     redirect('courses/index.php');
 }
 
-auth();
+auth(3);
 ?>
 
 

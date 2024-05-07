@@ -20,6 +20,8 @@ if (isset($_GET['delete'])) {
     $data  = mysqli_query($conn, $delete);
     redirect('admins/index.php');
 }
+auth();
+ 
 ?>
 
 
@@ -65,7 +67,7 @@ if (isset($_GET['delete'])) {
                                         <th scope="row"><?= $item['id'] ?></th>
                                         <th><?= $item['name'] ?></th>
                                         <th><?= $item['email'] ?></th>
-                                    
+
                                         <th><a href="./edit.php?edit=<?= $item['id'] ?>"><i class='bx bxs-message-square-edit'></i></a></th>
 
                                         <th><a href="./index.php?delete=<?= $item['id'] ?>"><i class='text-danger bx bxs-message-square-x'></i></a></th>

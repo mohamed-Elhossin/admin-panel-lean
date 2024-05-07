@@ -11,39 +11,43 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.php">
+        <a class="nav-link " href="<?= URL("index.php") ?>">
           <i class="bi bi-grid"></i>
           <span>My Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= URL("admins/index.php") ?>">
-          <i class='bx bx-category'></i>
-          <span>Admins</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= URL("categories/index.php") ?>">
-          <i class='bx bx-category'></i>
-          <span>Category</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-      
-      <li class="nav-item">
+      <?php if ($_SESSION['admin']['rule'] == 1) : ?>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="<?= URL("admins/index.php") ?>">
+            <i class='bx bx-category'></i>
+            <span>Admins</span>
+          </a>
+        </li><!-- End Profile Page Nav -->
+        <li class="nav-item">
         <a class="nav-link collapsed" href="<?= URL("teachers/index.php") ?>">
           <i class='bx bx-category'></i>
           <span>Teachers</span>
         </a>
       </li><!-- End Profile Page Nav -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= URL("courses/index.php") ?>">
-          <i class='bx bx-category'></i>
-          <span>Courses</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-      
+      <?php endif; ?>
+      <?php if ($_SESSION['admin']['rule'] == 1 || $_SESSION['admin']['rule'] == 2) :  ?>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="<?= URL("categories/index.php") ?>">
+            <i class='bx bx-category'></i>
+            <span>Category</span>
+          </a>
+        </li><!-- End Profile Page Nav -->
+      <?php endif; ?>
+
+      <?php if ($_SESSION['admin']['rule'] == 1 || $_SESSION['admin']['rule'] == 3) : ?>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="<?= URL("courses/index.php") ?>">
+            <i class='bx bx-category'></i>
+            <span>Courses</span>
+          </a>
+        </li><!-- End Profile Page Nav -->
+      <?php endif; ?>
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>

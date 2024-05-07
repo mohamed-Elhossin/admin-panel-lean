@@ -13,7 +13,7 @@ if (isset($_GET['edit'])) {
     $select = "SELECT * FROM categories where id = $id";
     $data  = mysqli_query($conn, $select);
     $row = mysqli_fetch_assoc($data);
-    echo  $row['name'];
+    // echo  $row['name'];
     $name = $row['name'];
     if (isset($_POST['send'])) {
         $name = $_POST['name'];
@@ -23,6 +23,8 @@ if (isset($_GET['edit'])) {
         $message =  testMessage($i, "Update Category Successfully");
         redirect('categories/index.php');
     }
+} else {
+   redirect('pages-error-404.php');
 }
 
 ?>

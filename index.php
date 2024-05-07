@@ -1,18 +1,34 @@
 <?php
-include_once './shared/head.php';
-include_once './shared/header.php';
-include_once './shared/aside.php';
+// include_once './shared/head.php';
+// include_once './shared/header.php';
+// include_once './shared/aside.php';
 include_once './App/functions.php';
+include_once './App/configDatabase.php';
 
-auth();
+auth(2, 3);
 
+/*
+SELECT courses.teacher_id FROM enroll
+JOIN courses ON enroll.course_id = courses.id;
+SELECT * FROM teachers WHERE id = teacher_id
+*/
+$seelctTeahcer = "SELECT courses.teacher_id as id FROM enroll
+JOIN courses ON enroll.course_id = courses.id";
+$run =  mysqli_query($conn, $seelctTeahcer);
+$teacher_data = mysqli_fetch_assoc($run);
+$id = $teacher_data['id'];
 
+$allTeacher_data = "SELECT * from teachers where id =$id ";
+$run2 = mysqli_query($conn, $allTeacher_data);
+$allData_Teacher = mysqli_fetch_assoc($run2);
+echo $allData_Teacher['name'];
+die
 ?>
 
 <main id="main" class="main">
 
   <div class="pagetitle">
-    <h1>Dashboard Welcome <?=  $_SESSION['admin'] ?></h1>
+    <h1>Dashboard Welcome <?= $_SESSION['admin']['name'] ?></h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>

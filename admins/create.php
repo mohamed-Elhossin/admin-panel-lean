@@ -2,6 +2,10 @@
 // Database Conniction
 include_once '../App/configDatabase.php';
 include_once '../App/functions.php';
+// 
+
+
+
 // Shared UI
 include_once '../shared/head.php';
 include_once '../shared/header.php';
@@ -12,11 +16,22 @@ if (isset($_POST['send'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $hash_password = sha1($password);
-    $insert = "INSERT INTO admins VALUES (null , '$name' ,'$email','$hash_password')";
+    // Image Code;
+    $image_name = rand(0, 255) . rand(0, 255) .  $_FILES['image']['name'];
+    $image_tmp = $_FILES['image']['tmp_name'];
+    $location = "./upload/$image_name";
+    move_uploaded_file($image_tmp, $location);
+    // ?????
+    $full_image_path = URL('admins/upload/') . $image_name;
+ 
+ 
+    $insert = "INSERT INTO admins VALUES (null , '$name' ,'$email','$hash_password' , '$full_image_path', 3)";
     $i = mysqli_query($conn, $insert);
     $message =  testMessage($i, "Create admins Successfully");
 }
 
+
+auth();
 ?>
 
 <main id="main" class="main">
@@ -34,7 +49,7 @@ if (isset($_POST['send'])) {
             </h5>
 
             <!-- No Labels Form -->
-            <form method="post" class="row g-3">
+            <form method="post" class="row g-3" enctype="multipart/form-data">
                 <div class="col-md-12">
                     <input type="text" name="name" class="form-control" placeholder="Admin Name">
                 </div>
@@ -44,6 +59,10 @@ if (isset($_POST['send'])) {
                 </div>
                 <div class="col-md-12">
                     <input type="password" name="password" class="form-control" placeholder="Admin Password">
+                </div>
+                <div class="col-md-12">
+                    <label for="">Admin Image</label>
+                    <input type="file" name="image" class="form-control">
                 </div>
                 <div class="text-center">
                     <button type="submit" name="send" class="btn btn-primary">Submit</button>
